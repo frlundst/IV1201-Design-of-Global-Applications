@@ -21,7 +21,7 @@ jobs:
           
       - name: Run Tests
         run: |
-          #cd webapp
+          cd webapp
           npm install
           npm test
           
