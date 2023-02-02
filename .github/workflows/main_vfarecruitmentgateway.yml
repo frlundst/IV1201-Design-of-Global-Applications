@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}services/gateway/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,11 +40,11 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     
     steps:
-      #- name: Download artifact from build job
-      #  uses: actions/download-artifact@v2
-      #  with:
-      #    name: java-app
-      #    path: services/gateway
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: java-app
+          path: '${{ github.workspace }}services/gateway/target/*.jar'
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
