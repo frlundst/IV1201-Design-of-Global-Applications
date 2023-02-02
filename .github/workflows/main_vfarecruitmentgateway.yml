@@ -53,4 +53,4 @@ jobs:
           app-name: 'vfarecruitmentgateway'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6DC9624A199A46C8B4FDDED3DD394A8C }}
-          package: '${{ github.workspace }}/services/gateway/target/*.jar'
+          package: 'services/gateway/target/*.jar'
