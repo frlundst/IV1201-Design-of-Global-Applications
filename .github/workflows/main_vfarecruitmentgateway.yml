@@ -48,7 +48,7 @@ jobs:
 
       - name: Files
         run: |
-          ls
+          ls services/gateway
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
