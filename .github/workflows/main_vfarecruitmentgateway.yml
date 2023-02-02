@@ -25,6 +25,9 @@ jobs:
         run: |
           cd services/gateway
           mvn clean install
+        
+      - name: Tests
+        run: mvn test
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
