@@ -53,11 +53,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "api/person/test",
-                        "api/person/login")
+                        "api/person/login",
+                        "api/person/register")
                 .permitAll()
-                .requestMatchers(
-                        "")
-                .hasRole("USER")
                 .requestMatchers(
                         "/category/add",
                         "/product/add",
