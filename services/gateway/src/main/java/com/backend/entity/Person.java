@@ -18,7 +18,7 @@ import jakarta.persistence.*;
 @Setter
 @Entity
 @EqualsAndHashCode
-@Table(name = "user")
+@Table(name = "person")
 public class Person implements UserDetails{
 
     @Id
