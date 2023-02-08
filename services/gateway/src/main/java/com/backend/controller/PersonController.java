@@ -51,8 +51,6 @@ public class PersonController {
      */
     @GetMapping("api/person/test")
     public String test() {
-        Person c = new Person();
-        personRepository.save(c);
         return "test";
     }
 
