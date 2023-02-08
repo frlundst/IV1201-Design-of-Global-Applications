@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.entity.User;
+import com.backend.entity.Person;
 import com.backend.model.JwtRequest;
 import com.backend.model.JwtResponse;
-import com.backend.repository.UserRepository;
+import com.backend.repository.PersonRepository;
 import com.backend.security.config.JwtTokenUtil;
-import com.backend.service.CustomerService;
+import com.backend.service.PersonService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,13 +25,13 @@ import jakarta.transaction.Transactional;
 
 @CrossOrigin(origins = { "*" })
 @RestController
-public class UserController {
+public class PersonController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepository customerRepository;
+    private PersonRepository personRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -40,33 +40,45 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private CustomerService customerService;
+    private PersonService personService;
 
-    public UserController() {
+    public PersonController() {
     }
 
-    @GetMapping("/test")
+    /**
+     * Endpoint Test
+     * @return
+     */
+    @GetMapping("api/person/test")
     public String test() {
-        User c = new User();
-        customerRepository.save(c);
         return "test";
     }
 
-    @PostMapping(value = "/customer/register", consumes = "application/json", produces = "application/json")
+    /**
+     * Endpoint to register a new person
+     * @param customer
+     * @param response
+     * @return
+     */
+    @PostMapping(value = "api/person/register", consumes = "application/json", produces = "application/json")
     @Transactional
-    public String registerCustomer(@RequestBody User customer, HttpServletResponse response) {
-        System.out.println("Customer registration request received");
-
+    public String registerPerson(@RequestBody Person person, HttpServletResponse response) {
         try {
-            User c = new User();
-            c.setEmail(customer.getEmail());
-
-            String password = passwordEncoder.encode(customer.getPassword());
+            // Hash password the new password
+            String password = passwordEncoder.encode(person.getPassword());
+            
+            // Create new person
+            Person c = new Person();
+            c.setEmail(person.getEmail());
             c.setPassword(password);
-            c.setCustomerRole("USER");
-            customerRepository.save(c);
+            c.setPersonRole("USER");
+
+            // Save person in db
+            personRepository.save(c);
+
+            // Success
             response.setStatus(200);
-            return "Customer registered successfully";
+            return "Person registered successfully";
         } catch (Exception e) {
             response.setStatus(500);
             System.out.println(e.getMessage());
@@ -74,14 +86,18 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/customer/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> loginCustomer(@RequestBody JwtRequest request, HttpServletResponse response)
-            throws Exception {
-        System.out.println("Customer login request received");
-
+    /**
+     * Endpoint to authenticate a person
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "api/person/login", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> loginCustomer(@RequestBody JwtRequest request, HttpServletResponse response) throws Exception {
         authenticate(request.getUsername(), request.getPassword());
 
-        final UserDetails userDetails = customerService
+        final UserDetails userDetails = personService
                 .loadUserByUsername(request.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userDetails);
@@ -89,27 +105,19 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @GetMapping("/customer/isAuth")
-    public String isAuth(HttpServletResponse response, HttpServletRequest request) {
-        System.out.println("Customer isauth request received");
-        try {
-            String username = jwtTokenUtil.getUsernameFromToken(request.getHeader("Authorization").substring(7));
-            System.out.println(username);
-            response.setStatus(200);
-        } catch (Exception e) {
-            response.setStatus(500);
-            System.out.println(e.getMessage());
-        }
-        return "";
-    }
-
-    @GetMapping("/customer/getProfile")
-    public User getProfile(HttpServletResponse response, HttpServletRequest request) {
+    /**
+     * 
+     * @param response
+     * @param request
+     * @return
+     */
+    @GetMapping("api/person/getProfile")
+    public Person getProfile(HttpServletResponse response, HttpServletRequest request) {
         System.out.println("Customer getProfile request received");
         try {
             String username = jwtTokenUtil.getUsernameFromToken(request.getHeader("Authorization").substring(7));
             System.out.println(username);
-            User customer = customerRepository.findByEmail(username);
+            Person customer = personRepository.findByEmail(username);
             customer.setPassword("");
             response.setStatus(200);
             return customer;
@@ -122,7 +130,6 @@ public class UserController {
 
     /**
      * Generate token for user.
-     * 
      * @param username
      * @param password
      * @throws Exception

@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.backend.service.CustomerService;
+import com.backend.service.PersonService;
 
 import lombok.AllArgsConstructor;
 
@@ -29,7 +29,7 @@ public class WebSecurityConfig {
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
-    private CustomerService customerService;
+    private PersonService customerService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
@@ -52,8 +52,9 @@ public class WebSecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/test",
-                        "/login")
+                        "/api/person/test",
+                        "/api/person/login",
+                        "/api/person/register")
                 .permitAll()
                 .requestMatchers(
                         "/category/add",
