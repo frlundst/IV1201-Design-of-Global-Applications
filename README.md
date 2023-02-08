@@ -1,3 +1,2 @@
 # IV1201-Design-of-Global-Applications
-wdawdawdiopjaiwojd
-wdaiodaoiwjdajoi
+Welcome to the repo!
