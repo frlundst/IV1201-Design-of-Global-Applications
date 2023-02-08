@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.backend.service.CustomerService;
+import com.backend.service.PersonService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private CustomerService customerService;
+	private PersonService customerService;
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;

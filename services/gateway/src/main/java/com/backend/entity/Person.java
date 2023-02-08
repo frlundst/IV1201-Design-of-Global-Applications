@@ -19,12 +19,21 @@ import jakarta.persistence.*;
 @Entity
 @EqualsAndHashCode
 @Table(name = "user")
-public class User implements UserDetails{
+public class Person implements UserDetails{
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "pnr")
+    private String pnr;
 
     @Column(name = "email")
     private String email;
@@ -34,9 +43,13 @@ public class User implements UserDetails{
 
     private Boolean enabled = true;
 
-    String customerRole = "USER";
+    @Column(name = "role")
+    String personRole = "USER";
 
-    public User() {
+    @Column(name = "username")
+    private String username;
+
+    public Person() {
     }
 
     @Override
@@ -51,13 +64,13 @@ public class User implements UserDetails{
 
     @Override
     public String toString() {
-        return "Customer [email=" + email + ", id=" + id + ", password="
+        return "Person [email=" + email + ", id=" + id + ", password="
                 + password + "]";
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(customerRole);
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(personRole);
         return Collections.singletonList(authority);
     }
 
