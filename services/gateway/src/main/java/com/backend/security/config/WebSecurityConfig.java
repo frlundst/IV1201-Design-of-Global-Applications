@@ -52,9 +52,9 @@ public class WebSecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "api/person/test",
-                        "api/person/login",
-                        "api/person/register")
+                        "/api/person/test",
+                        "/api/person/login",
+                        "/api/person/register")
                 .permitAll()
                 .requestMatchers(
                         "/category/add",
