@@ -9,6 +9,12 @@ on:
       - services/gateway/**
     branches:
       - main
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - services/gateway/**
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
