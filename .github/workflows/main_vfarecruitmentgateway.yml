@@ -5,6 +5,8 @@ name: Build and deploy JAR app to Azure Web App - vfarecruitmentgateway
 
 on:
   push:
+    paths:
+      - services/gateway/**
     branches:
       - main
   workflow_dispatch:
