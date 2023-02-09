@@ -30,12 +30,15 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        env:
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        #env:
+          #DB_URL: ${{ secrets.DB_URL }}
+          #DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          #DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           cd services/gateway
+          sed '1s/spring.datasource.url= ${{ secrets.DB_URL }}' src/main/resources/application.properties
+          sed '2s/spring.datasource.username= ${{ secrets.DB_USERNAME }}' src/main/resources/application.properties
+          sed '3s/spring.datasource.password ${{ secrets.DB_PASSWORD }}' src/main/resources/application.properties
           mvn clean install
 
       - name: Upload artifact for deployment job
