@@ -106,7 +106,7 @@ public class PersonController {
     }
 
     /**
-     * 
+     * Get profile
      * @param response
      * @param request
      * @return
