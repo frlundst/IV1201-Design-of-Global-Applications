@@ -31,9 +31,9 @@ jobs:
 
       - name: Build with Maven
         env:
-          spring.datasource.url: ${{ secrets.DB_URL }}
-          spring.datasource.username: ${{ secrets.DB_USERNAME }}
-          spring.datasource.password: ${{ secrets.DB_PASSWORD }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           cd services/gateway
           mvn clean install
