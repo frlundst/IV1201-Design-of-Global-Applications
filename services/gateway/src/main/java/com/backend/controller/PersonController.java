@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
-@CrossOrigin(origins = { "*" })
+@CrossOrigin(origins = "${cors.frontend.url}")
 @RestController
 public class PersonController {
 
@@ -69,8 +69,12 @@ public class PersonController {
             
             // Create new person
             Person c = new Person();
+            c.setName(person.getName());
+            c.setSurname(person.getSurname());
+            c.setPnr(person.getPnr());
             c.setEmail(person.getEmail());
             c.setPassword(password);
+            c.setUsername(person.getUsername());
             c.setPersonRole("USER");
 
             // Save person in db

@@ -1,19 +1,35 @@
 import React from "react";
 import { ViewBaseProps } from "../../../Internalization/ViewBaseProps";
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, CssBaseline, Grid, Link, TextField, Typography } from "@mui/material";
 import { Copyright } from "../../Composite/Copyright";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Person } from "../../../Types/Person";
+import { RegisterPerson } from "./Fetch";
 
 export const Register: React.FC<ViewBaseProps> = ({ formatText }) => {
     document.title = formatText("View.Register.DocumentTitle");
+    const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+
+        const person = {
+            name: data.get('firstName'),
+            surname: data.get('lastName'),
+            pnr: data.get('pnr'),
             email: data.get('email'),
             password: data.get('password'),
-        });
+            username: data.get('username')
+        } as Person;
+
+        RegisterPerson(person).then(res => {
+            console.log(res);
+            if (res.status === 200) {
+                navigate('/login');
+            }
+        })
+        
     };
 
     return (
