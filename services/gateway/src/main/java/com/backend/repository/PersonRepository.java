@@ -7,6 +7,6 @@ import com.backend.entity.Person;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, String> {
-    public <S extends Person> S save(Person user);
+    public Person save(Person user);
     public Person findByEmail(String email);
 }
