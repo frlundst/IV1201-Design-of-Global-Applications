@@ -41,7 +41,7 @@ jobs:
           echo "spring.datasource.url= ${{ secrets.DB_URL }}" >> ./src/main/resources/application.properties
           echo "spring.datasource.username= ${{ secrets.DB_USERNAME }}" >> ./src/main/resources/application.properties
           echo "spring.datasource.password= ${{ secrets.DB_PASSWORD }}" >> ./src/main/resources/application.properties
-          echo "cors.allowed.origins= https://icy-sand-0913d0b03.2.azurestaticapps.net" >> ./src/main/resources/application.properties
+          echo "cors.frontend.url= https://icy-sand-0913d0b03.2.azurestaticapps.net" >> ./src/main/resources/application.properties
           cat ./src/main/resources/application.properties
           mvn clean install
 
