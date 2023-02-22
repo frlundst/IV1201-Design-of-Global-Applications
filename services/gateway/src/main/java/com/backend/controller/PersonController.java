@@ -64,6 +64,37 @@ public class PersonController {
     @Transactional
     public String registerPerson(@RequestBody Person person, HttpServletResponse response) {
         try {
+            // Check given data
+            if (person.getName() == null || person.getName().length() < 1) {
+                response.setStatus(400);
+                return "Name is required";
+            }
+
+            if (person.getSurname() == null || person.getSurname().length() < 1) {
+                response.setStatus(400);
+                return "Surname is required";
+            }
+
+            if (person.getPnr() == null || person.getPnr().length() < 10 || person.getPnr().length() > 12) {
+                response.setStatus(400);
+                return "Pnr is required";
+            }
+
+            if (person.getEmail() == null || person.getEmail().length() < 1) {
+                response.setStatus(400);
+                return "Email is required";
+            }
+
+            if (person.getPassword() == null || person.getPassword().length() < 6) {
+                response.setStatus(400);
+                return "Password is required";
+            }
+
+            if (person.getUsername() == null || person.getUsername().length() < 1) {
+                response.setStatus(400);
+                return "Username is required";
+            }
+
             // Hash password the new password
             String password = passwordEncoder.encode(person.getPassword());
             
