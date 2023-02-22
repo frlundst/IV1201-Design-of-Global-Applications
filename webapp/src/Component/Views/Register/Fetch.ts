@@ -1,7 +1,8 @@
+import { URL } from "../../../Resources/URL";
 import { Person } from "../../../Types/Person";
 
 export function RegisterPerson(person: Person): Promise<Response> {
-    return fetch("http://localhost:8080/api/person/register", {
+    return fetch(`${URL}/api/person/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

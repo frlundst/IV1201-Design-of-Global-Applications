@@ -1,0 +1,1 @@
+export const URL = window.location.hostname === 'http://localhost:5173' ? 'http://localhost:8080' : 'https://vfarecruitmentgateway.azurewebsites.net';
