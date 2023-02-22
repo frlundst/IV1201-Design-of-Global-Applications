@@ -5,6 +5,7 @@ import { Home } from './Component/Views/Home/Component';
 import { textFormatter } from './Internalization/textFormatter';
 import { ViewBaseProps } from './Internalization/ViewBaseProps';
 import { Login } from './Component/Views/Login/Component';
+import { Register } from './Component/Views/Register/Component';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
 
   // Set up ViewBaseProps
 
-  const [language, setLanguage] = React.useState('en');
+  const [language, setLanguage] = React.useState('sv');
 
   function formatText(code: string) {
     return textFormatter(code, language);
@@ -42,6 +43,11 @@ function App() {
       <Route
         path="/login"
         element={<Login {...viewBaseProps} />}
+      />
+
+      <Route 
+        path="/register"
+        element={<Register {...viewBaseProps} />}
       />
     </Routes>
   )
