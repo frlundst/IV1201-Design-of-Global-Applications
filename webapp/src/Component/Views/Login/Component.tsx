@@ -1,8 +1,10 @@
 import { Avatar, Box, Button, Checkbox, Container, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
 import { ViewBaseProps } from "../../../Internalization/ViewBaseProps";
+import { Link as RouterLink } from "react-router-dom";
+import { Copyright } from "../../Composite/Copyright";
 
 export const Login: React.FC<ViewBaseProps> = ({ formatText }) => {
-    document.title = formatText("View.Login.Title");
+    document.title = formatText("View.Login.DocumentTitle");
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -14,7 +16,7 @@ export const Login: React.FC<ViewBaseProps> = ({ formatText }) => {
     };
 
     return (
-        <Container>
+        <Container component="main" maxWidth="xs">
             <Box
                 sx={{
                     marginTop: 8,
@@ -63,21 +65,19 @@ export const Login: React.FC<ViewBaseProps> = ({ formatText }) => {
                         {formatText("View.Login.SignIn")}
                     </Button>
                     <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                {formatText("View.Login.ForgotPassword")}
-                            </Link>
-                        </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link 
+                                component={RouterLink} 
+                                to="/register"
+                                variant="body2"
+                            >
                                 {formatText("View.Login.DontHaveAnAccount")}
                             </Link>
                         </Grid>
                     </Grid>
                 </Box>
-                <Typography variant="body2" color="text.secondary" align="center">
-                    Copyright © VFA Recruitment {new Date().getFullYear()}.
-                </Typography>
+                <br/>
+                <Copyright />
             </Box>
         </Container>
     );
