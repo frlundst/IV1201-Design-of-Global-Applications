@@ -1,4 +1,3 @@
-import { Button } from '@mui/material'
 import React from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { Home } from './Component/Views/Home/Component';
@@ -6,20 +5,50 @@ import { textFormatter } from './Internalization/textFormatter';
 import { ViewBaseProps } from './Internalization/ViewBaseProps';
 import { Login } from './Component/Views/Login/Component';
 import { Register } from './Component/Views/Register/Component';
+import { Person } from './Types/Person';
+import { URL } from './Resources/URL';
 
 function App() {
 
   const navigate = useNavigate();
 
-  // Authentication router
-
-  const [authenticated, setAuthenticated] = React.useState(false);
+  const [token, setToken] = React.useState<string | null>(localStorage.getItem("token"));
+  const [person, setPerson] = React.useState<Person | null>(null);
 
   React.useEffect(() => {
-    if(!authenticated) {
-      navigate('/login');
+    setToken(localStorage.getItem("token"));
+  });
+
+  React.useEffect(() => {
+    if(token) {
+      fetch(`${URL}/api/person/getPerson`, { 
+        method: 'GET',
+        headers: {
+          'Authorization': token
+        }
+      }).then(response => {
+        console.log(response);
+
+        if(response.status === 200) {
+          response.json().then(data => {
+            setPerson(data);
+
+            if(data.role === "ADMIN") {
+              navigate("/admin");
+            } else {
+              navigate("/");
+            }
+          });
+        } else {
+          console.error("Token is invalid");
+          localStorage.removeItem("token");
+          setToken(null);
+        }
+      });
+    } else {
+      navigate("/login");
     }
-  }, [authenticated])
+  }, [token]);
 
   // Set up ViewBaseProps
 
@@ -30,7 +59,8 @@ function App() {
   }
 
   const viewBaseProps = {
-    formatText: formatText
+    formatText: formatText,
+    person: person
   } as ViewBaseProps
 
   return (
@@ -42,7 +72,7 @@ function App() {
 
       <Route
         path="/login"
-        element={<Login {...viewBaseProps} />}
+        element={<Login {...viewBaseProps} setToken={setToken} />}
       />
 
       <Route 

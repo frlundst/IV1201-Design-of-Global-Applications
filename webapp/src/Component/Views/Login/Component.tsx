@@ -1,17 +1,38 @@
 import { Avatar, Box, Button, Checkbox, Container, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
 import { ViewBaseProps } from "../../../Internalization/ViewBaseProps";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Copyright } from "../../Composite/Copyright";
+import { JwtRequest } from "../../../Types/JwtRequest";
+import { LoginPerson } from "./Fetch";
+import { JwtResponse } from "../../../Types/JwtReponse";
 
-export const Login: React.FC<ViewBaseProps> = ({ formatText }) => {
+interface LoginProps extends ViewBaseProps {
+    setToken: (token: string | null) => void;
+}
+
+export const Login: React.FC<LoginProps> = ({ formatText, setToken }) => {
     document.title = formatText("View.Login.DocumentTitle");
+    const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+        
+        const jwtRequest = {
+            username: data.get('email'),
+            password: data.get('password')
+        } as JwtRequest;
+
+        LoginPerson(jwtRequest).then(res => {
+            console.log(res);
+            if (res.status === 200) {
+                res.json().then(data => {
+                    const jwtResponse = data as JwtResponse;
+                    console.log(jwtResponse);
+                    localStorage.setItem("token", "Bearer " + jwtResponse.token);
+                    setToken("Bearer " + jwtResponse.token);
+                });
+            }
         });
     };
 

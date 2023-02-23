@@ -47,6 +47,7 @@ public class PersonController {
 
     /**
      * Endpoint Test
+     * 
      * @return
      */
     @GetMapping("api/person/test")
@@ -56,6 +57,7 @@ public class PersonController {
 
     /**
      * Endpoint to register a new person
+     * 
      * @param customer
      * @param response
      * @return
@@ -97,7 +99,7 @@ public class PersonController {
 
             // Hash password the new password
             String password = passwordEncoder.encode(person.getPassword());
-            
+
             // Create new person
             Person c = new Person();
             c.setName(person.getName());
@@ -123,6 +125,7 @@ public class PersonController {
 
     /**
      * Endpoint to authenticate a person
+     * 
      * @param request
      * @param response
      * @return
@@ -130,25 +133,28 @@ public class PersonController {
      */
     @PostMapping(value = "api/person/login", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> loginCustomer(@RequestBody JwtRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("Person login request received");
+
         authenticate(request.getUsername(), request.getPassword());
 
-        final UserDetails userDetails = personService
-                .loadUserByUsername(request.getUsername());
+        UserDetails userDetails = personService.loadUserByUsername(request.getUsername());
 
-        final String token = jwtTokenUtil.generateToken(userDetails);
+        String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
     /**
      * Get profile
+     * 
      * @param response
      * @param request
      * @return
      */
-    @GetMapping("api/person/getProfile")
+    @GetMapping("api/person/getPerson")
     public Person getProfile(HttpServletResponse response, HttpServletRequest request) {
-        System.out.println("Customer getProfile request received");
+        System.out.println("Person getPerson request received");
+
         try {
             String username = jwtTokenUtil.getUsernameFromToken(request.getHeader("Authorization").substring(7));
             System.out.println(username);
@@ -165,6 +171,7 @@ public class PersonController {
 
     /**
      * Generate token for user.
+     * 
      * @param username
      * @param password
      * @throws Exception
