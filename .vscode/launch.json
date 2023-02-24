@@ -19,6 +19,16 @@
             "projectName": "gateway",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BackendApplicationCompetence<competence>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.competence.BackendApplicationCompetence",
+            "projectName": "competence",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
