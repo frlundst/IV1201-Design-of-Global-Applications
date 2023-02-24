@@ -31,9 +31,10 @@ function App() {
 
         if(response.status === 200) {
           response.json().then(data => {
+            console.log(data);
             setPerson(data);
 
-            if(data.role === "ADMIN") {
+            if(data.personRole === "ADMIN") {
               navigate("/admin");
             } else {
               navigate("/");

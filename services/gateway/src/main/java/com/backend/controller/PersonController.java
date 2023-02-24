@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
 @CrossOrigin(origins = "${cors.frontend.url}")
+@Transactional
 @RestController
 public class PersonController {
 
@@ -63,7 +64,6 @@ public class PersonController {
      * @return
      */
     @PostMapping(value = "api/person/register", consumes = "application/json", produces = "application/json")
-    @Transactional
     public String registerPerson(@RequestBody Person person, HttpServletResponse response) {
         try {
             // Check given data
