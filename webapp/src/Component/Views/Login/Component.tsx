@@ -3,37 +3,33 @@ import { ViewBaseProps } from "../../../Internalization/ViewBaseProps";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Copyright } from "../../Composite/Copyright";
 import { JwtRequest } from "../../../Types/JwtRequest";
-import { LoginPerson } from "./Fetch";
-import { JwtResponse } from "../../../Types/JwtReponse";
+import { useAuthStore } from "../../../Store/authStore";
+import React from "react";
 
-interface LoginProps extends ViewBaseProps {
-    setToken: (token: string | null) => void;
-}
-
-export const Login: React.FC<LoginProps> = ({ formatText, setToken }) => {
+export const Login: React.FC<ViewBaseProps> = ({ formatText }) => {
     document.title = formatText("View.Login.DocumentTitle");
     const navigate = useNavigate();
+
+    const token = useAuthStore((state: any) => state.token);
+    const login = useAuthStore((state: any) => state.login);
+
+    // Check if token is set
+    React.useEffect(() => {
+        if (token) {
+            navigate("/");
+        }
+    }, [token]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        
+
         const jwtRequest = {
             username: data.get('email'),
             password: data.get('password')
         } as JwtRequest;
 
-        LoginPerson(jwtRequest).then(res => {
-            console.log(res);
-            if (res.status === 200) {
-                res.json().then(data => {
-                    const jwtResponse = data as JwtResponse;
-                    console.log(jwtResponse);
-                    localStorage.setItem("token", "Bearer " + jwtResponse.token);
-                    setToken("Bearer " + jwtResponse.token);
-                });
-            }
-        });
+        login(jwtRequest, navigate).catch((error: Error) => alert(error));
     };
 
     return (
@@ -87,8 +83,8 @@ export const Login: React.FC<LoginProps> = ({ formatText, setToken }) => {
                     </Button>
                     <Grid container>
                         <Grid item>
-                            <Link 
-                                component={RouterLink} 
+                            <Link
+                                component={RouterLink}
                                 to="/register"
                                 variant="body2"
                             >
@@ -97,7 +93,7 @@ export const Login: React.FC<LoginProps> = ({ formatText, setToken }) => {
                         </Grid>
                     </Grid>
                 </Box>
-                <br/>
+                <br />
                 <Copyright />
             </Box>
         </Container>
