@@ -4,12 +4,6 @@
 name: Build and deploy JAR app to Azure Web App - vfarecruitmentgateway
 
 on:
-  push:
-    paths:
-      - services/gateway/**
-      - .github/workflows/main_vfarecruitmentgateway.yml
-    branches:
-      - main
   pull_request:
     types: [opened, synchronize, reopened, closed]
     paths:
