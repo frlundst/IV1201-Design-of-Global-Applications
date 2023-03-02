@@ -1,27 +1,23 @@
 import React from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Home } from './Component/Views/Home/Component';
 import { textFormatter } from './Internalization/textFormatter';
 import { ViewBaseProps } from './Internalization/ViewBaseProps';
 import { Login } from './Component/Views/Login/Component';
 import { Register } from './Component/Views/Register/Component';
 import { Person } from './Types/Person';
-import { URL } from './Resources/URL';
 
 function App() {
 
-  const navigate = useNavigate();
-
-  const [token, setToken] = React.useState<string | null>(localStorage.getItem("token"));
   const [person, setPerson] = React.useState<Person | null>(null);
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     setToken(localStorage.getItem("token"));
-  });
+  });*/
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     if(token) {
-      fetch(`${URL}/api/person/getPerson`, { 
+      fetch(`${URL}/api/initPerson`, { 
         method: 'GET',
         headers: {
           'Authorization': token
@@ -43,13 +39,16 @@ function App() {
         } else {
           console.error("Token is invalid");
           localStorage.removeItem("token");
+          navigate("/login");
           setToken(null);
         }
+      }).catch(() => {
+        navigate("/login");
       });
     } else {
       navigate("/login");
     }
-  }, [token]);
+  }, [token]);*/
 
   // Set up ViewBaseProps
 
@@ -73,7 +72,7 @@ function App() {
 
       <Route
         path="/login"
-        element={<Login {...viewBaseProps} setToken={setToken} />}
+        element={<Login {...viewBaseProps} />}
       />
 
       <Route 
