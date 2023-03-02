@@ -49,6 +49,9 @@ public class Person implements UserDetails{
     @Column(name = "username")
     private String username;
 
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Availability> availabilities;
+
     public Person() {
     }
 
