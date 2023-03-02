@@ -54,7 +54,8 @@ public class WebSecurityConfig {
                 .requestMatchers(
                         "/api/person/test",
                         "/api/person/login",
-                        "/api/person/register")
+                        "/api/person/register",
+                        "/api/competences")
                 .permitAll()
                 .requestMatchers(
                         "/category/add",

@@ -51,10 +51,7 @@ public class PersonController {
      * 
      * @return
      */
-    @GetMapping("api/person/test")
-    public String test() {
-        return "test";
-    }
+
 
     /**
      * Endpoint to register a new person
