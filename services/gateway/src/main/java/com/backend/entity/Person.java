@@ -49,7 +49,8 @@ public class Person implements UserDetails{
     @Column(name = "username")
     private String username;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
+    @JoinColumn(name = "person_id")
     private Collection<Availability> availabilities;
 
     public Person() {

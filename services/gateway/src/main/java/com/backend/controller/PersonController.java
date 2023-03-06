@@ -57,7 +57,6 @@ public class PersonController {
 
     /**
      * Endpoint to register a new person
-     * 
      * @param customer
      * @param response
      * @return

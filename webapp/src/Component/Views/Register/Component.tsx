@@ -1,14 +1,16 @@
 import React from "react";
-import { ViewBaseProps } from "../../../Internalization/ViewBaseProps";
 import { Avatar, Box, Button, Container, CssBaseline, Grid, Link, TextField, Typography } from "@mui/material";
 import { Copyright } from "../../Composite/Copyright";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Person } from "../../../Types/Person";
 import { RegisterPerson } from "./Fetch";
+import { useContextStore } from "../../../Store/contextStore";
 
-export const Register: React.FC<ViewBaseProps> = ({ formatText }) => {
-    document.title = formatText("View.Register.DocumentTitle");
+export const Register = () => {
     const navigate = useNavigate();
+    const formatText = useContextStore((state: any) => state.formatText);
+
+    document.title = formatText("View.Register.DocumentTitle");
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

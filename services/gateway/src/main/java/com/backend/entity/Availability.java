@@ -20,14 +20,14 @@ public class Availability {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //private Person person;
-
     @Column(name = "date_from")
     private String dateFrom;
 
     @Column(name = "date_to")
     private String dateTo;
+
+    @Column(name = "person_id")
+    private String personId;
 
     public Availability() {
     }
