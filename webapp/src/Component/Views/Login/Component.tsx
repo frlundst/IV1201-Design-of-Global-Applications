@@ -70,10 +70,6 @@ export const Login = () => {
                         id="password"
                         autoComplete="current-password"
                     />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label={formatText("View.Login.RememberMe")}
-                    />
                     <Button
                         type="submit"
                         fullWidth
