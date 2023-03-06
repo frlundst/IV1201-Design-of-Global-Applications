@@ -5,12 +5,13 @@ on:
     types: [opened, synchronize, reopened, closed]
     paths:
       - webapp/**
+      - .github/workflows/azure-static-web-apps-icy-sand-0913d0b03.yml
     branches:
       - main
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    #if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
