@@ -1,3 +1,4 @@
+import { Application } from "./Application";
 import { Availability } from "./Availability";
 
 export interface Person {
@@ -9,5 +10,6 @@ export interface Person {
     password: string;
     personRole: "USER" | "ADMIN";
     username: string;
-    availabilities: Availability[]
+    availabilities: Availability[];
+    application: Application;
 }

@@ -17,14 +17,11 @@ public class Application {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "status")
+    private String status;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "years")
-    private int years;
+    @Column(name = "person_id")
+    private String personId;
  
     public Application() {
     }
