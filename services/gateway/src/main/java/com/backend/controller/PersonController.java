@@ -46,13 +46,23 @@ public class PersonController {
     }
 
     /**
-     * Endpoint Test
-     * 
+     * Get a person by id.
+     * @param id
      * @return
      */
     @GetMapping("api/person/{id}")
     public Person getPerson(@PathVariable String id) {
         return personRepository.findById(id).get();
+    }
+
+    /**
+     * Endpoint for fetching all users.
+     * Can only be done by ADMIN.
+     * @return
+     */
+    @GetMapping("/api/allPersons")
+    public Iterable<Person> getAllPersons() {
+        return personRepository.findAll();
     }
 
     /**

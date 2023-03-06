@@ -57,10 +57,8 @@ public class WebSecurityConfig {
                         "/api/person/register")
                 .permitAll()
                 .requestMatchers(
-                        "/category/add",
-                        "/product/add",
-                        "/product/sale/add")
-                .hasRole("ADMIN")
+                        "/api/allPersons")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
