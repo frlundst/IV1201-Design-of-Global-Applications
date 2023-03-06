@@ -1,3 +1,4 @@
+/* 
 package com.backend.helpers;
 
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ public class LoadDatabase {
 
        // Competence ticket_keeper = new Competence((long) 1, "Ticketkeeper");
 
+        
 
         Competence firstRole10= new Competence("Competence.AttractionWard");
 
@@ -36,9 +38,12 @@ public class LoadDatabase {
         Competence firstRole13= new Competence("Competence.Ballonist");
 
         competenceRepository.save(firstRole13); // save this into the database ok?.
+        
 
         
     };
     }
     
 }
+
+*/
