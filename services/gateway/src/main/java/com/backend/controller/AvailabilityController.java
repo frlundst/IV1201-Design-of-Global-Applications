@@ -34,7 +34,10 @@ public class AvailabilityController {
     }
 
     /**
-     * Post availability
+     * Add availability
+     * @param availability
+     * @param request
+     * @param response
      * @return
      */
     @PostMapping("api/availability/add")
@@ -66,6 +69,12 @@ public class AvailabilityController {
         return "Success";
     }
 
+    /**
+     * Delete availability
+     * @param id
+     * @param response
+     * @return
+     */
     @DeleteMapping("api/availability/remove/{id}")
     public String removeAvailability(@PathVariable String id, HttpServletResponse response) {
         availabilityRepository.deleteById(id);
