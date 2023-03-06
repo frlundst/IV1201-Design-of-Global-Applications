@@ -1,9 +1,12 @@
-import { AppBar, Box, Button, Container, FormControl, IconButton, InputLabel, Menu, MenuItem, Select, Toolbar, Typography } from "@mui/material"
+import { AppBar, Box, Button, Container, Menu, MenuItem, Toolbar, Typography } from "@mui/material"
 import React from "react";
 import { useContextStore } from "../../Store/contextStore";
 import { usePersonStore } from "../../Store/personStore";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
+    const navigate = useNavigate();
+
     const setLanguage = useContextStore((state: any) => state.setLanguage);
     const formatText = useContextStore((state: any) => state.formatText);
     const logout = usePersonStore((state: any) => state.logout);
@@ -61,7 +64,7 @@ export const Navbar = () => {
                     </Menu>
                     <Button
                         color="inherit"
-                        onClick={() => logout()}
+                        onClick={() => logout(navigate)}
                     >
                         {formatText("Component.Composite.Navbar.Logout")}
                     </Button>
