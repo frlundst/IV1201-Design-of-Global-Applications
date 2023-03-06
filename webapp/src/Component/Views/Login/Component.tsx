@@ -1,17 +1,18 @@
 import { Avatar, Box, Button, Checkbox, Container, FormControlLabel, Grid, Link, TextField, Typography } from "@mui/material";
-import { ViewBaseProps } from "../../../Internalization/ViewBaseProps";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Copyright } from "../../Composite/Copyright";
 import { JwtRequest } from "../../../Types/JwtRequest";
-import { useAuthStore } from "../../../Store/authStore";
+import { usePersonStore } from "../../../Store/personStore";
 import React from "react";
+import { useContextStore } from "../../../Store/contextStore";
 
-export const Login: React.FC<ViewBaseProps> = ({ formatText }) => {
-    document.title = formatText("View.Login.DocumentTitle");
+export const Login = () => {
     const navigate = useNavigate();
-
-    const token = useAuthStore((state: any) => state.token);
-    const login = useAuthStore((state: any) => state.login);
+    const token = usePersonStore((state: any) => state.token);
+    const login = usePersonStore((state: any) => state.login);
+    const formatText = useContextStore((state: any) => state.formatText);
+    
+    document.title = formatText("View.Login.DocumentTitle");
 
     // Check if token is set
     React.useEffect(() => {

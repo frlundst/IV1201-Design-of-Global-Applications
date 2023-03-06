@@ -29,6 +29,9 @@ public class Availability {
     @Column(name = "date_to")
     private String dateTo;
 
+    @Column(name = "person_id")
+    private String personId;
+
     public Availability() {
     }
 }

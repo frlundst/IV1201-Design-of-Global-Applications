@@ -93,5 +93,20 @@ export const Texts = [
         code: "View.Register.AlreadyHaveAnAccount",
         en: "Already have an account? Sign In",
         sv: "Har du redan ett konto? Logga in"
+    },
+    {
+        code: "Component.Composite.Navbar.Logout",
+        en: "Logout",
+        sv: "Logga ut"
+    },
+    {
+        code: "Component.Composite.Navbar.Language",
+        en: "Language",
+        sv: "Språk"
+    },
+    {
+        code: "Component.Composite.Navbar.PoweredBy",
+        en: "Powered by VFA Recruitment",
+        sv: "Drivs av VFA Recruitment"
     }
 ] as TextObject[];
