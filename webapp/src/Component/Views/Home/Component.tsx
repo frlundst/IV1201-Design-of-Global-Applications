@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../Composite/Navbar";
 import { Button, Container } from "@mui/material";
 import { Availabilities } from "./ChildComponents/Availabilities";
+import { useContextStore } from "../../../Store/contextStore";
 
 export const sectionStyle = {
     marginBottom: "30px",
     borderBottom: "1px solid lightgray",
-    //borderRadius: "5px",
     paddingBottom: "30px"
 } as React.CSSProperties;
 
@@ -21,6 +21,9 @@ export const Home = () => {
     const navigate = useNavigate();
 
     const person: Person | null = usePersonStore((state: any) => state.person);
+    const formatText = useContextStore((state: any) => state.formatText);
+
+    document.title = formatText("View.Home.Title");
 
     React.useEffect(() => {
         if (!person) {
@@ -36,16 +39,12 @@ export const Home = () => {
             <Navbar />
             <Container>
                 <div style={sectionStyle}>
-                    <h1>Welcome {person?.name} {person?.surname}</h1>
+                    <h1>{formatText("View.Home.Welcome")} {person?.name} {person?.surname}</h1>
                 </div>
 
                 <Availabilities />
 
-                <div style={sectionStyle}>
-                    <h2>Competence profiles</h2>
-                </div>
-
-                <Button variant="contained">Create application</Button>
+                <Button variant="contained">{formatText("View.Home.CreateApplication")}</Button>
             </Container>
         </>
     );

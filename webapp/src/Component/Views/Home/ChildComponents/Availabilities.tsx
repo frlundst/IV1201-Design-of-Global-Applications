@@ -7,8 +7,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { sectionStyle, sectionTitleStyle } from "../Component";
 import { Availability } from "../../../../Types/Availability";
 import { Person } from "../../../../Types/Person";
+import { useContextStore } from "../../../../Store/contextStore";
 
 export const Availabilities = () => {
+    const formatText = useContextStore((state: any) => state.formatText);
+
     const [dateFrom, setDateFrom] = React.useState(dayjs());
     const [dateTo, setDateTo] = React.useState(dayjs());
 
@@ -31,15 +34,15 @@ export const Availabilities = () => {
     }
 
     return <div style={sectionStyle}>
-        <h2 style={sectionTitleStyle}>Availabilities</h2>
+        <h2 style={sectionTitleStyle}>{formatText("View.Home.Availabilities")}</h2>
 
         <TableContainer component={Paper}>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Availability id</TableCell>
-                        <TableCell align="right">Date from</TableCell>
-                        <TableCell align="right">Date to</TableCell>
+                        <TableCell>{formatText("View.Home.AvailabilitiyId")}</TableCell>
+                        <TableCell align="right">{formatText("View.Home.AvalabilityDateFrom")}</TableCell>
+                        <TableCell align="right">{formatText("View.Home.AvalabilityDateTo")}</TableCell>
                         <TableCell align="right"></TableCell>
                     </TableRow>
                 </TableHead>
@@ -57,7 +60,7 @@ export const Availabilities = () => {
                             <TableCell align="right">
                                 <Button
                                     onClick={() => handleRemoveAvailability(availability.id)}
-                                >Remove</Button>
+                                >{formatText("View.Home.AvalabilityRemove")}</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -68,12 +71,12 @@ export const Availabilities = () => {
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <div style={{display: "flex", gap:"20px"}}>
                                     <DesktopDatePicker
-                                        label="Date from"
+                                        label={formatText("View.Home.AvalabilityDateFrom")}
                                         value={dateFrom}
                                         onChange={(date) => setDateFrom(date as any)}
                                     />
                                     <DesktopDatePicker
-                                        label="Date to"
+                                        label={formatText("View.Home.AvalabilityDateTo")}
                                         value={dateTo}
                                         onChange={(date) => setDateTo(date as any)}
                                     />
@@ -83,7 +86,7 @@ export const Availabilities = () => {
                         <TableCell />
                         <TableCell />
                         <TableCell align="right">
-                            <Button onClick={handleAddAvailability}>Add</Button>
+                            <Button onClick={handleAddAvailability}>{formatText("View.Home.AvalabilityAdd")}</Button>
                         </TableCell>
                     </TableRow>
                 </TableBody>

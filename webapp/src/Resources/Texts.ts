@@ -108,5 +108,50 @@ export const Texts = [
         code: "Component.Composite.Navbar.PoweredBy",
         en: "Powered by VFA Recruitment",
         sv: "Drivs av VFA Recruitment"
+    },
+    {
+        code: "View.Home.Welcome",
+        en: "Welcome",
+        sv: "Välkommen"
+    },
+    {
+        code: "View.Home.Title",
+        en: "Home | VFA Recruitment",
+        sv: "Hem | VFA Recruitment"
+    },
+    {
+        code: "View.Home.CreateApplication",
+        en: "Create Application",
+        sv: "Skapa ansökan"
+    },
+    {
+        code: "View.Home.Availabilities",
+        en: "Availabilities",
+        sv: "Tillgängligheter"
+    },
+    {
+        code: "View.Home.AvailabilitiyId",
+        en: "Availabilitiy Id",
+        sv: "Tillgänglighets Id"
+    },
+    {
+        code: "View.Home.AvalabilityDateFrom",
+        en: "Date from",
+        sv: "Datum från"
+    },
+    {
+        code: "View.Home.AvalabilityDateTo",
+        en: "Date to",
+        sv: "Datum till"
+    },
+    {
+        code: "View.Home.AvalabilityRemove",
+        en: "Remove",
+        sv: "Ta bort"
+    },
+    {
+        code: "View.Home.AvalabilityAdd",
+        en: "Add",
+        sv: "Lägg till"
     }
 ] as TextObject[];
