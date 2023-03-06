@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.entity.Person;
 import com.backend.entity.Application;
 import com.backend.repository.ApplicationRepository;
 import com.backend.model.AddApplicationRequest;
 
 import jakarta.transaction.Transactional;
 
-@CrossOrigin(origins = {"http://127.0.0.1:5173", "http://localhost:5173"})
+@CrossOrigin(origins = "${cors.frontend.url}")
 @RestController
 public class ApplicationController {
 
