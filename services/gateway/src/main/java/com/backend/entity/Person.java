@@ -53,6 +53,10 @@ public class Person implements UserDetails{
     @JoinColumn(name = "person_id")
     private Collection<Availability> availabilities;
 
+    @OneToOne
+    @JoinColumn(name = "person_id")
+    private Application application;
+
     public Person() {
     }
 
