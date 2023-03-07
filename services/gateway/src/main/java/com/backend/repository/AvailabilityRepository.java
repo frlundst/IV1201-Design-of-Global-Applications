@@ -7,5 +7,4 @@ import com.backend.entity.Availability;
 
 @Repository
 public interface AvailabilityRepository extends JpaRepository<Availability, String> {
-    public Availability save(Availability availability);
 }

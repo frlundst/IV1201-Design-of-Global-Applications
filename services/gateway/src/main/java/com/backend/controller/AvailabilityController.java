@@ -28,7 +28,8 @@ public class AvailabilityController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Autowired PersonRepository personRepository;
+    @Autowired 
+    private PersonRepository personRepository;
 
     public AvailabilityController() {
     }

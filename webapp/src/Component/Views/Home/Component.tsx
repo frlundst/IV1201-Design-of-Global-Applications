@@ -6,6 +6,7 @@ import { Navbar } from "../../Composite/Navbar";
 import { Button, Container } from "@mui/material";
 import { Availabilities } from "./ChildComponents/Availabilities";
 import { useContextStore } from "../../../Store/contextStore";
+import { Application } from "./ChildComponents/Application";
 
 export const sectionStyle = {
     marginBottom: "30px",
@@ -44,7 +45,7 @@ export const Home = () => {
 
                 <Availabilities />
 
-                <Button variant="contained">{formatText("View.Home.CreateApplication")}</Button>
+                <Application />
             </Container>
         </>
     );
