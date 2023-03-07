@@ -86,6 +86,12 @@ public class ApplicationController {
      */
     @PutMapping("api/updateApplicationStatus")
     public String updateApplicationStatus(@RequestBody UpdateApplicationStatusRequest request){
+        if(request.getStatus() == null || request.getId() == null)
+            throw new IllegalArgumentException("Status or id is null");
+        
+        if(request.getStatus() != "Status.Accepted" && request.getStatus() != "Status.Rejected" && request.getStatus() != "Status.Unhandled")
+            throw new IllegalArgumentException("Status is not valid");
+
         applicationRepository.updateStatusById(request.getStatus(), request.getId());
         return "Success";
     }
