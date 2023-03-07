@@ -54,7 +54,10 @@ public class WebSecurityConfig {
                 .requestMatchers(
                         "/api/person/**",
                         "/api/person/login",
-                        "/api/person/register")
+                        "/api/person/register",
+                        "/api/create/competenceProfile",
+                        "/api/competences") // THIS IS THE NEW API CALL OK? // THIS IS NOT FINISHED. NEXT STEP IS TO CREATE A NEW Competence PRofile OK?.
+
                 .permitAll()
                 .requestMatchers(
                         "/api/allPersons",
