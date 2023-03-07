@@ -38,9 +38,9 @@ public class Competence {
         this.nameOfCompetence = nameOfCompetence;
     }
 
-    public String getId(){
-        return this.Id;
-    }
+   // public String getId(){
+     //   return this.Id;
+    //}
 
     public String getNameOfCompetence(){
         return this.nameOfCompetence;

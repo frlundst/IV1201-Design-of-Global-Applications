@@ -55,7 +55,9 @@ public class WebSecurityConfig {
                         "/api/person/test",
                         "/api/person/login",
                         "/api/person/register",
-                        "/api/competences")
+                        "/api/create/competenceProfile",
+                        "/api/competences") // THIS IS THE NEW API CALL OK? // THIS IS NOT FINISHED. NEXT STEP IS TO CREATE A NEW Competence PRofile OK?.
+
                 .permitAll()
                 .requestMatchers(
                         "/category/add",
