@@ -16,8 +16,6 @@ public interface ApplicationRepository extends JpaRepository<Application, String
 
     Application findByPersonId(String personId);
 
-    public Application save(Application application);
-
     @Modifying
     @Query("UPDATE Application a SET a.status = ?1 WHERE a.id = ?2")
     public void updateStatusById(String status, String id);

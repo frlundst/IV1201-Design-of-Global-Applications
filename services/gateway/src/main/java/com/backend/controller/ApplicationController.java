@@ -3,10 +3,8 @@ package com.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,18 +36,19 @@ public class ApplicationController {
     public ApplicationController() {
     }
 
+    /**
+     * Get all applications
+     * Can only be done by ADMIN.
+     * @return
+     */
     @GetMapping("api/allApplications")
     public List<Application> getAllApplications() {
         return applicationRepository.findAll();
     }
 
-    @GetMapping("api/applications/search/{name}")
-    public List<Application> searchApplications(@PathVariable String name, Model model) {
-        return null;
-    }
-
     /**
-     * Get the authenticated user application
+     * Get the authenticated user application.
+     * Is used when user is logged in.
      * @param request
      * @return
      */
@@ -61,6 +60,11 @@ public class ApplicationController {
         return applicationRepository.findByPersonId(personRepository.findByEmail(username).getId());
     }
 
+    /**
+     * Add a new application.
+     * Is used when user is logged in.
+     * @param request
+     */
     @PostMapping("api/application/add")
     @Transactional
     public String addApplication(HttpServletRequest request) {
@@ -78,6 +82,7 @@ public class ApplicationController {
     /**
      * Update the application status by id.
      * Can only be done by ADMIN.
+     * @param request
      */
     @PutMapping("api/updateApplicationStatus")
     public String updateApplicationStatus(@RequestBody UpdateApplicationStatusRequest request){
