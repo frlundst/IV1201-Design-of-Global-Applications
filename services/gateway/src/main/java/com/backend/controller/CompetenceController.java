@@ -36,7 +36,7 @@ public class CompetenceController {
 
     @GetMapping("")
     public String test10() {
-        return "test";
+        return "test10";
     }
 
 
