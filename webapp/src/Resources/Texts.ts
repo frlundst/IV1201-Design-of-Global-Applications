@@ -45,6 +45,26 @@ export const Texts = [
         sv: "Har du inget konto? Skapa ett"
     },
     {
+        code: "View.ForgotPassword.DocumentTitle",
+        en: "Forgot Password | VFA Recruitment",
+        sv: "Glömt Lösenord | VFA Recruitment"
+    },
+    {
+        code: "View.ForgotPassword.Title",
+        en: "Forgot Password",
+        sv: "Glömt Lösenord"
+    },
+    {
+        code: "View.ForgotPassword.Send",
+        en: "Send",
+        sv: "Skicka"
+    },
+    {
+        code: "View.ForgotPassword.Sent",
+        en: "Follow the instruction in the email sent to ",
+        sv: "Följ instruktionerna i mailet som skickats till "
+    },
+    {
         code: "View.Register.DocumentTitle",
         en: "Register | VFA Recruitment",
         sv: "Skapa konto | VFA Recruitment"
@@ -153,5 +173,60 @@ export const Texts = [
         code: "View.Home.AvalabilityAdd",
         en: "Add",
         sv: "Lägg till"
+    },
+    {
+        code: "View.Home.Application",
+        en: "Application",
+        sv: "Ansökan"
+    },
+    {
+        code: "View.Home.ApplicationId",
+        en: "Application Id: ",
+        sv: "Ansöknings Id: "
+    },
+    {
+        code: "View.Home.ApplicationStatus",
+        en: "Application Status: ",
+        sv: "Ansöknans Status: "
+    },
+    {
+        code: "View.Admin.DocumentTitle",
+        en: "Admin | VFA Recruitment",
+        sv: "Admin | VFA Recruitment"
+    },
+    {
+        code: "View.Admin.Applications",
+        en: "Applications",
+        sv: "Ansökningar"
+    },
+    {
+        code: "View.Admin.ApplicationId",
+        en: "Application Id",
+        sv: "Ansöknings Id"
+    },
+    {
+        code: "View.Admin.FullName",
+        en: "Full Name",
+        sv: "Namn"
+    },
+    {
+        code: "View.Admin.View",
+        en: "View",
+        sv: "Visa"
+    },
+    {
+        code: "Status.Unhandled",
+        en: "Unhandled",
+        sv: "Ej hanterad"
+    },
+    {
+        code: "Status.Accepted",
+        en: "Accepted",
+        sv: "Accepterad"
+    },
+    {
+        code: "Status.Rejected",
+        en: "Rejected",
+        sv: "Avvisad"
     }
 ] as TextObject[];

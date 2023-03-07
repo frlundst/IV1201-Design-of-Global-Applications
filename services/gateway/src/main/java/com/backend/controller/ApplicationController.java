@@ -8,33 +8,80 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.entity.Application;
+import com.backend.model.UpdateApplicationStatusRequest;
 import com.backend.repository.ApplicationRepository;
+import com.backend.repository.PersonRepository;
+import com.backend.security.config.JwtTokenUtil;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
 @CrossOrigin(origins = "${cors.frontend.url}")
 @RestController
+@Transactional
 public class ApplicationController {
 
     @Autowired
     private ApplicationRepository applicationRepository;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired 
+    private PersonRepository personRepository;
+
     public ApplicationController() {
     }
 
-    @GetMapping("/applications/search/{name}")
+    @GetMapping("api/allApplications")
+    public List<Application> getAllApplications() {
+        return applicationRepository.findAll();
+    }
+
+    @GetMapping("api/applications/search/{name}")
     public List<Application> searchApplications(@PathVariable String name, Model model) {
         return null;
     }
 
-    @PostMapping("/application/add")
+    /**
+     * Get the authenticated user application
+     * @param request
+     * @return
+     */
+    @GetMapping("api/application/get")
+    public Application getApplication(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+
+        return applicationRepository.findByPersonId(personRepository.findByEmail(username).getId());
+    }
+
+    @PostMapping("api/application/add")
     @Transactional
-    public String addApplication(@RequestBody Application application) {
+    public String addApplication(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+
+        Application application = new Application();
+        application.setPerson(personRepository.findByEmail(username));
+        application.setStatus("Status.Unhandled");
+
         applicationRepository.save(application);
+        return "Success";
+    }
+
+    /**
+     * Update the application status by id.
+     * Can only be done by ADMIN.
+     */
+    @PutMapping("api/updateApplicationStatus")
+    public String updateApplicationStatus(@RequestBody UpdateApplicationStatusRequest request){
+        applicationRepository.updateStatusById(request.getStatus(), request.getId());
         return "Success";
     }
 }

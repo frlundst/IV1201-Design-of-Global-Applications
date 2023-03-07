@@ -5,10 +5,12 @@ import { URL } from "../Resources/URL";
 import { NavigateFunction } from "react-router-dom";
 import { Person } from "../Types/Person";
 import { Availability } from "../Types/Availability";
+import { Application } from "../Types/Application";
 
 export const usePersonStore = create((set: any, get: any) => ({
     token: localStorage.getItem("token"),
     person: JSON.parse(localStorage.getItem("person") as string),
+    application: null,
     setToken: (token: string) => set({ token }),
     /**
      * Login the user and navigate to the correct page.
@@ -111,5 +113,44 @@ export const usePersonStore = create((set: any, get: any) => ({
         }
 
         usePersonStore.getState().updatePerson();
+    },
+    /**
+     * Add an application to the logged in person.
+     */
+    addApplication: async () => {
+        const response = await fetch(`${URL}/api/application/add`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+        });
+
+        if (response.status !== 200) {
+            throw new Error("Add application failed");
+        }
+
+        usePersonStore.getState().updatePerson();
+        usePersonStore.getState().getApplication();
+    },
+    getApplication: async () => {
+        const response = await fetch(`${URL}/api/application/get`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+        });
+
+        if (response.status === 200) {
+            response.json().then((data: Application) => {
+                console.log(data);
+                set({ application: data });
+            });
+        } else {
+            throw new Error("Get application failed");
+        }
+
+        return response.json();
     }
 }));

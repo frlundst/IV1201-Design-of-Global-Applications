@@ -11,5 +11,4 @@ export interface Person {
     personRole: "USER" | "ADMIN";
     username: string;
     availabilities: Availability[];
-    application: Application;
 }

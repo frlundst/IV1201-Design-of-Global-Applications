@@ -3,6 +3,7 @@ import React from "react";
 import { useContextStore } from "../../Store/contextStore";
 import { usePersonStore } from "../../Store/personStore";
 import { useNavigate } from "react-router-dom";
+import { Person } from "../../Types/Person";
 
 export const Navbar = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ export const Navbar = () => {
     const setLanguage = useContextStore((state: any) => state.setLanguage);
     const formatText = useContextStore((state: any) => state.formatText);
     const logout = usePersonStore((state: any) => state.logout);
+    const person: Person | null = usePersonStore((state: any) => state.person);
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -62,12 +64,20 @@ export const Navbar = () => {
                             }}
                         >Svenska</MenuItem>
                     </Menu>
-                    <Button
+                    {person ?
+                        <Button
+                            color="inherit"
+                            onClick={() => logout(navigate)}
+                        >
+                            {formatText("Component.Composite.Navbar.Logout")}
+                        </Button> :
+                        <Button
                         color="inherit"
-                        onClick={() => logout(navigate)}
+                        onClick={() => navigate("/login")}
                     >
-                        {formatText("Component.Composite.Navbar.Logout")}
+                        {formatText("View.Login.SignIn")}
                     </Button>
+                    }
                 </Toolbar>
             </Container>
         </AppBar>

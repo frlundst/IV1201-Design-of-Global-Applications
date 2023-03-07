@@ -3,6 +3,7 @@ import { Home } from './Component/Views/Home/Component';
 import { Login } from './Component/Views/Login/Component';
 import { Register } from './Component/Views/Register/Component';
 import { Admin } from './Component/Views/Admin/Component';
+import { ForgotPassword } from './Component/Views/ForgotPassword/Component';
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
       <Route 
         path="/register"
         element={<Register />}
+      />
+
+      <Route
+        path="/forgot-password"
+        element={<ForgotPassword />}
       />
 
       <Route

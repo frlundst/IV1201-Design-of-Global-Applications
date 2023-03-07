@@ -20,8 +20,9 @@ public class Application {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "person_id")
-    private String personId;
+    @OneToOne
+    @JoinColumn(name = "person_id", unique = true)
+    private Person person;
  
     public Application() {
     }
