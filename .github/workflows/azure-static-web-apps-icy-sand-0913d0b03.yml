@@ -1,8 +1,11 @@
 name: Azure Static Web Apps CI/CD
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, closed]
     paths:
       - webapp/**
       - .github/workflows/azure-static-web-apps-icy-sand-0913d0b03.yml
@@ -10,10 +13,10 @@ on:
       - main
 
 jobs:
-  build:
-    #if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build
+    name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v2
         with:
@@ -36,13 +39,12 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
 
-  deploy:
-    #if: github.event_name == 'pull_request' && github.event.action == 'closed'
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-    needs: build
-    name: Deploy
+    name: Close Pull Request Job
     steps:
-      - name: Deploy
+      - name: Close Pull Request
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
