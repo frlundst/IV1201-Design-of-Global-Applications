@@ -2,6 +2,8 @@ package com.backend.model;
 
 import java.io.Serializable;
 
+import com.backend.entity.Person;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,13 +12,15 @@ import lombok.Setter;
 public class JwtResponse implements Serializable {
 
 	private static final long serialVersionUID = -12345L;
-	private final String jwttoken;
+	private final String token;
+	private Person person;
 
-	public JwtResponse(String jwttoken) {
-		this.jwttoken = jwttoken;
+	public JwtResponse(String jwttoken, Person person) {
+		this.token = jwttoken;
+		this.person = person;
 	}
 
 	public String getToken() {
-		return this.jwttoken;
+		return this.token;
 	}
 }

@@ -9,7 +9,6 @@ import com.backend.entity.Person;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, String> {
-    public Person save(Person user);
     public Person findByEmail(String email);
 
 

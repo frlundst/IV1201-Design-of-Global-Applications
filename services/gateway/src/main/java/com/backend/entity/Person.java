@@ -49,6 +49,10 @@ public class Person implements UserDetails{
     @Column(name = "username")
     private String username;
 
+    @OneToMany
+    @JoinColumn(name = "person_id")
+    private Collection<Availability> availabilities;
+
     public Person() {
     }
 

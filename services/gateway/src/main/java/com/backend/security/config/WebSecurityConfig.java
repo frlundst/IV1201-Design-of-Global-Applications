@@ -52,7 +52,7 @@ public class WebSecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/api/person/test",
+                        "/api/person/**",
                         "/api/person/login",
                         "/api/person/register",
                         "/api/create/competenceProfile",
@@ -60,10 +60,10 @@ public class WebSecurityConfig {
 
                 .permitAll()
                 .requestMatchers(
-                        "/category/add",
-                        "/product/add",
-                        "/product/sale/add")
-                .hasRole("ADMIN")
+                        "/api/allPersons",
+                        "api/allApplications",
+                        "api/updateApplicationStatus")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

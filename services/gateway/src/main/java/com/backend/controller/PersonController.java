@@ -1,13 +1,13 @@
 package com.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +19,6 @@ import com.backend.repository.PersonRepository;
 import com.backend.security.config.JwtTokenUtil;
 import com.backend.service.PersonService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
@@ -47,15 +46,27 @@ public class PersonController {
     }
 
     /**
-     * Endpoint Test
-     * 
+     * Get a person by id.
+     * @param id
      * @return
      */
+    @GetMapping("api/person/{id}")
+    public Person getPerson(@PathVariable String id) {
+        return personRepository.findById(id).get();
+    }
 
+    /**
+     * Endpoint for fetching all users.
+     * Can only be done by ADMIN.
+     * @return
+     */
+    @GetMapping("/api/allPersons")
+    public Iterable<Person> getAllPersons() {
+        return personRepository.findAll();
+    }
 
     /**
      * Endpoint to register a new person
-     * 
      * @param customer
      * @param response
      * @return
@@ -129,7 +140,7 @@ public class PersonController {
      * @throws Exception
      */
     @PostMapping(value = "api/person/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> loginCustomer(@RequestBody JwtRequest request, HttpServletResponse response) throws Exception {
+    public JwtResponse loginCustomer(@RequestBody JwtRequest request, HttpServletResponse response) throws Exception {
         System.out.println("Person login request received");
 
         authenticate(request.getUsername(), request.getPassword());
@@ -138,32 +149,9 @@ public class PersonController {
 
         String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
-    }
+        Person person = personRepository.findByEmail(request.getUsername());
 
-    /**
-     * Get profile
-     * 
-     * @param response
-     * @param request
-     * @return
-     */
-    @GetMapping("api/person/getPerson")
-    public Person getProfile(HttpServletResponse response, HttpServletRequest request) {
-        System.out.println("Person getPerson request received");
-
-        try {
-            String username = jwtTokenUtil.getUsernameFromToken(request.getHeader("Authorization").substring(7));
-            System.out.println(username);
-            Person customer = personRepository.findByEmail(username);
-            customer.setPassword("");
-            response.setStatus(200);
-            return customer;
-        } catch (Exception e) {
-            response.setStatus(500);
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return new JwtResponse(token, person);
     }
 
     /**
