@@ -1,16 +1,20 @@
 package com.backend.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.entity.Application;
+import com.backend.entity.Person;
 import com.backend.model.UpdateApplicationStatusRequest;
 import com.backend.repository.ApplicationRepository;
 import com.backend.repository.PersonRepository;
@@ -93,6 +97,24 @@ public class ApplicationController {
             throw new IllegalArgumentException("Status is not valid");
 
         applicationRepository.updateStatusById(request.getStatus(), request.getId());
+        return "Success";
+    }
+
+    @DeleteMapping("api/application/delete/{id}")
+    public String deleteApplication(@PathVariable String id, HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Person person = personRepository.findByEmail(username);
+
+        Optional<Application> application = applicationRepository.findById(id);
+
+        if(!application.isPresent())
+            throw new IllegalArgumentException("Application does not exist");
+
+        if(!application.get().getPerson().getId().equals(person.getId()))
+            throw new IllegalArgumentException("You are not allowed to delete this application");
+
+        applicationRepository.deleteById(id);
         return "Success";
     }
 }

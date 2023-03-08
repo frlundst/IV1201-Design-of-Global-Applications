@@ -146,11 +146,26 @@ export const usePersonStore = create((set: any, get: any) => ({
             response.json().then((data: Application) => {
                 console.log(data);
                 set({ application: data });
+            }).catch((error: Error) => {
+                set({ application: null });
             });
         } else {
             throw new Error("Get application failed");
         }
+    },
+    deleteApplication: async (applicationId: String) => {
+        const response = await fetch(`${URL}/api/application/delete/${applicationId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+        });
 
-        return response.json();
-    }
+        if (response.ok) {
+            usePersonStore.getState().getApplication();
+        } else {
+            throw new Error("Delete application failed");
+        }
+    },
 }));

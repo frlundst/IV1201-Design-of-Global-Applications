@@ -10,6 +10,7 @@ export const Application = () => {
     const getApplication = usePersonStore((state: any) => state.getApplication);
     const addApplication = usePersonStore((state: any) => state.addApplication);
     const formatText = useContextStore((state: any) => state.formatText);
+    const deleteApplication = usePersonStore((state: any) => state.deleteApplication);
 
     React.useEffect(() => {
         getApplication();
@@ -32,6 +33,11 @@ export const Application = () => {
                 <h2 style={sectionTitleStyle}>{formatText("View.Home.Application")}</h2>
                 <p>{formatText("View.Home.ApplicationId")}<strong>{application.id}</strong></p>
                 <p>{formatText("View.Home.ApplicationStatus")}<strong style={{color: getStatusColor(application.status)}}>{formatText(application.status)}</strong></p>
+                <Button
+                    variant="contained"
+                    onClick={() => deleteApplication(application.id)}
+                    color="error"
+                >Delete</Button>
             </>
             :
             <Button

@@ -1,5 +1,6 @@
 import { Application } from "./Application";
 import { Availability } from "./Availability";
+import { CompetenceProfile } from "./ComptenceProfile";
 
 export interface Person {
     id: string;
@@ -11,4 +12,5 @@ export interface Person {
     personRole: "USER" | "ADMIN";
     username: string;
     availabilities: Availability[];
+    competenceProfiles: CompetenceProfile[];
 }

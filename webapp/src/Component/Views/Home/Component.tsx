@@ -7,6 +7,7 @@ import { Button, Container } from "@mui/material";
 import { Availabilities } from "./ChildComponents/Availabilities";
 import { useContextStore } from "../../../Store/contextStore";
 import { Application } from "./ChildComponents/Application";
+import { CompetenceProfiles } from "./ChildComponents/CompetenceProfiles";
 
 export const sectionStyle = {
     marginBottom: "30px",
@@ -44,6 +45,8 @@ export const Home = () => {
                 </div>
 
                 <Availabilities />
+
+                <CompetenceProfiles />
 
                 <Application />
             </Container>

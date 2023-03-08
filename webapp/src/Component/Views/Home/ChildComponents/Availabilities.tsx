@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import React from "react";
 import { usePersonStore } from "../../../../Store/personStore";
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
@@ -65,7 +65,7 @@ export const Availabilities = () => {
                         </TableRow>
                     ))}
                     <TableRow
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        sx={{ '&:last-child td, &:last-child th': { borderTop: "2px solid black" } }}
                     >
                         <TableCell>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>

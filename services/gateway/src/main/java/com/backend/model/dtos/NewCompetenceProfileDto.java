@@ -8,7 +8,7 @@ public class NewCompetenceProfileDto {
     public int yearsOfExperience; 
     
     @NotNull
-    public String Id;
+    public String id;
 
 
 

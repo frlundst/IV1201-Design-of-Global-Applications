@@ -2,6 +2,7 @@ package com.backend.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,34 +12,17 @@ import com.backend.repository.CompetenceRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 
-//@CrossOrigin(origins = { "*" })
+@CrossOrigin(origins = "${cors.frontend.url}")
 @RestController
-
+@Transactional
 public class CompetenceController {
 
-
-    private final CompetenceRepository repository;
+    @Autowired
+    private CompetenceRepository repository;
     
-
-    public CompetenceController(CompetenceRepository repository){
-        this.repository = repository;
-    }
-
-    /**
-     * Endpoint Test
-     * @return
-     */
-    @GetMapping("api/person/test")
-    public String test() {
-        return "test";
-    }
-
-    @GetMapping("")
-    public String test10() {
-        return "test10";
-    }
-
+    public CompetenceController(){}
 
     @GetMapping("/api/competences")
     public List<Competence> getAll(HttpServletResponse response, HttpServletRequest request) {

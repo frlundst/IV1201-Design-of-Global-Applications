@@ -190,6 +190,26 @@ export const Texts = [
         sv: "Ansöknans Status: "
     },
     {
+        code: "View.Home.ComptenceProfiles",
+        en: "Comptence Profiles",
+        sv: "Kompetensprofiler"
+    },
+    {
+        code: "View.Home.ComptenceProfileId",
+        en: "Comptence Profile Id",
+        sv: "Kompetensprofil Id"
+    },
+    {
+        code: "View.Home.ComptenceProfileCompetence",
+        en: "Competence",
+        sv: "Kompetens"
+    },
+    {
+        code: "View.Home.ComptenceProfileYearsOfExperience",
+        en: "Years of experience",
+        sv: "År av erfarenhet"
+    },
+    {
         code: "View.Admin.DocumentTitle",
         en: "Admin | VFA Recruitment",
         sv: "Admin | VFA Recruitment"
@@ -228,5 +248,20 @@ export const Texts = [
         code: "Status.Rejected",
         en: "Rejected",
         sv: "Avvisad"
+    },
+    {
+        code: "Competence.TicketSales",
+        en: "Ticket Sales",
+        sv: "Biljettförsäljning"
+    },
+    {
+        code: "Competence.Lotteries",
+        en: "Lotteries",
+        sv: "Lotterier"
+    },
+    {
+        code: "Competence.RollerCoasterOperation",
+        en: "Roller Coaster Operation",
+        sv: "Drift av berg- och dalbana"
     }
 ] as TextObject[];
