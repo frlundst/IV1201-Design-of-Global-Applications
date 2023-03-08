@@ -89,7 +89,7 @@ public class ApplicationController {
         if(request.getStatus() == null || request.getId() == null)
             throw new IllegalArgumentException("Status or id is null");
         
-        if(request.getStatus() != "Status.Accepted" && request.getStatus() != "Status.Rejected" && request.getStatus() != "Status.Unhandled")
+        if(!request.getStatus().equals("Status.Accepted") && !request.getStatus().equals("Status.Rejected") && !request.getStatus().equals("Status.Unhandled"))
             throw new IllegalArgumentException("Status is not valid");
 
         applicationRepository.updateStatusById(request.getStatus(), request.getId());
