@@ -24,7 +24,7 @@ export const usePersonStore = create((set: any, get: any) => ({
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(jwtRequest),
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;;
 
         if (response.status === 200) {
             response.json().then((data: JwtResponse) => {
@@ -40,7 +40,7 @@ export const usePersonStore = create((set: any, get: any) => ({
                 }
             });
         } else {
-            throw new Error("Login failed");
+            alert(response.status + ": Failed to login");
         }
     },
     /**
@@ -64,7 +64,7 @@ export const usePersonStore = create((set: any, get: any) => ({
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;
 
         if (response.status === 200) {
             response.json().then((data: Person) => {
@@ -72,7 +72,7 @@ export const usePersonStore = create((set: any, get: any) => ({
                 localStorage.setItem("person", JSON.stringify(data));
             });
         } else {
-            throw new Error("Failed to update person");
+            alert(response.status + ": Failed to update person");
         }
     },
     /**
@@ -87,10 +87,10 @@ export const usePersonStore = create((set: any, get: any) => ({
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify(availability),
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;
 
         if (response.status !== 200) {
-            throw new Error("Add avaiability failed");
+            alert(response.status + ": Failed to add availability");
         }
 
         usePersonStore.getState().updatePerson();
@@ -106,10 +106,10 @@ export const usePersonStore = create((set: any, get: any) => ({
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;
 
         if (response.status !== 200) {
-            throw new Error("Remove availability failed");
+            alert(response.status + ": Failed to remove availability");
         }
 
         usePersonStore.getState().updatePerson();
@@ -124,10 +124,10 @@ export const usePersonStore = create((set: any, get: any) => ({
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;
 
         if (response.status !== 200) {
-            throw new Error("Add application failed");
+            alert(response.status + ": Failed to add application");
         }
 
         usePersonStore.getState().updatePerson();
@@ -140,7 +140,7 @@ export const usePersonStore = create((set: any, get: any) => ({
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;
 
         if (response.status === 200) {
             response.json().then((data: Application) => {
@@ -150,7 +150,7 @@ export const usePersonStore = create((set: any, get: any) => ({
                 set({ application: null });
             });
         } else {
-            throw new Error("Get application failed");
+            alert(response.status + ": Failed to get application");
         }
     },
     deleteApplication: async (applicationId: String) => {
@@ -160,12 +160,12 @@ export const usePersonStore = create((set: any, get: any) => ({
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;
 
         if (response.ok) {
             usePersonStore.getState().getApplication();
         } else {
-            throw new Error("Delete application failed");
+            alert(response.status + ": Failed to delete application");
         }
     },
 }));

@@ -4,14 +4,14 @@ import { NewCompetenceRequest } from "../Types/NewCompetenceRequest";
 export const useCompetenceStore = create((set: any, get: any) => ({
     competences: [],
     getAllCompetences: async () => {
-        const response = await fetch(`http://localhost:8080/api/competences`);
+        const response = await fetch(`http://localhost:8080/api/competences`).catch(() => alert("Failed to establish connection to server")) as Response;
         if (response.status === 200) {
             response.json().then((data: any) => {
                 console.log(data);
                 set({ competences: data });
-            });
+            })
         } else {
-            throw new Error("Failed to get competences");
+            alert(response.status + ": Failed to get competences");
         }
     },
     addCompetenceProfile: async (newCompetenceRequest: NewCompetenceRequest, updatePerson: () => void) => {
@@ -22,12 +22,12 @@ export const useCompetenceStore = create((set: any, get: any) => ({
                 "Authorization": "Bearer " + localStorage.getItem("token"),
             },
             body: JSON.stringify(newCompetenceRequest),
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;
         console.log(response);
         if (response.ok) {
             updatePerson();
         } else {
-            throw new Error("Failed to add competence profile");
+            alert(response.status + ": Failed to add competence profile");
         }
     },
     deleteCompetenceProfile: async (competenceProfileId: number, updatePerson: () => void) => {
@@ -37,12 +37,12 @@ export const useCompetenceStore = create((set: any, get: any) => ({
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("token"),
             },
-        });
+        }).catch(() => alert("Failed to establish connection to server")) as Response;
 
         if (response.ok) {
             updatePerson();
         } else {
-            throw new Error("Failed to delete competence profile");
+            alert(response.status + ": Failed to delete competence profile");
         }
     },
 }));

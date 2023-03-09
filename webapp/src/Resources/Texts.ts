@@ -235,6 +235,61 @@ export const Texts = [
         sv: "Visa"
     },
     {
+        code: "View.Admin.NrOfCompetenceProfiles",
+        en: "Nr of competence profiles",
+        sv: "Antal kompetensprofiler"
+    },
+    {
+        code: "View.Admin.NrOfAvailabilities",
+        en: "Nr of availabilities",
+        sv: "Antal tillgängligheter"
+    },
+    {
+        code: "View.Admin.Profile",
+        en: "Profile",
+        sv: "Profil"
+    },
+    {
+        code: "View.Admin.Name",
+        en: "Name: ",
+        sv: "Namn: "
+    },
+    {
+        code: "View.Admin.Email",
+        en: "Email: ",
+        sv: "E-post: "
+    },
+    {
+        code: "View.Admin.Avalabilities",
+        en: "Avalabilities",
+        sv: "Tillgängligheter"
+    },
+    {
+        code: "View.Admin.PersonalNumber",
+        en: "Personal Number: ",
+        sv: "Personnummer: "
+    },
+    {
+        code: "View.Admin.CompetenceProfiles",
+        en: "Competence Profiles",
+        sv: "Kompetensprofiler"
+    },
+    {
+        code: "View.Admin.Competence",
+        en: "Competence: ",
+        sv: "Kompetens: "
+    },
+    {
+        code: "View.Admin.YearsOfExperience",
+        en: "Years of experience: ",
+        sv: "År av erfarenhet: "
+    },
+    {
+        code: "View.Admin.Save",
+        en: "Save",
+        sv: "Spara"
+    },
+    {
         code: "Status.Unhandled",
         en: "Unhandled",
         sv: "Ej hanterad"

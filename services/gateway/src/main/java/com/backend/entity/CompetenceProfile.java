@@ -20,7 +20,7 @@ public class CompetenceProfile {
         name="yearsOfExperience",
         nullable = false
     )
-    private int yearsOfExperience;
+    private double yearsOfExperience;
 
     @ManyToOne
     @JoinColumn(name="competence_id")
