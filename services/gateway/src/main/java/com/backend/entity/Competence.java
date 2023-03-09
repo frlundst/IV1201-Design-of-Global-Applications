@@ -46,6 +46,10 @@ public class Competence {
         return this.nameOfCompetence;
     }
 
+    public String getId(){
+        return this.Id;
+    }
+
 
 
 

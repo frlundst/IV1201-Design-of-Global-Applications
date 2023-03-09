@@ -11,8 +11,11 @@ import com.backend.repository.CompetenceRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 
 //@CrossOrigin(origins = { "*" })
+@CrossOrigin(origins = "${cors.frontend.url}")
+@Transactional
 @RestController
 
 public class CompetenceController {
@@ -45,7 +48,7 @@ public class CompetenceController {
         System.out.println("getAll competences executing..");
         try {
             response.setStatus(200);
-            return repository.findAll(); // RETURN LIST OF ALL. 
+            return repository.findAll(); // RETURN Id + name ok.
         } catch (Exception e) {
             response.setStatus(500);
             System.out.println(e.getMessage());
