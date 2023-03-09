@@ -17,7 +17,7 @@ public class CompetenceProfile {
     private String Id;
    
     @Column(
-        name="yearsOfExperience",
+        name="years_of_experience",
         nullable = false,
         precision=10, 
         scale=2
