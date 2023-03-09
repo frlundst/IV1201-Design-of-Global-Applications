@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { NewCompetenceRequest } from "../Types/NewCompetenceRequest";
+import { URL } from "../Resources/URL";
 
 export const useCompetenceStore = create((set: any, get: any) => ({
     competences: [],
     getAllCompetences: async () => {
-        const response = await fetch(`http://localhost:8080/api/competences`).catch(() => alert("Failed to establish connection to server")) as Response;
+        const response = await fetch(`${URL}/api/competences`).catch(() => alert("Failed to establish connection to server")) as Response;
         if (response.status === 200) {
             response.json().then((data: any) => {
                 console.log(data);
@@ -15,7 +16,7 @@ export const useCompetenceStore = create((set: any, get: any) => ({
         }
     },
     addCompetenceProfile: async (newCompetenceRequest: NewCompetenceRequest, updatePerson: () => void) => {
-        const response = await fetch(`http://localhost:8080/api/create/competenceProfile`, {
+        const response = await fetch(`${URL}/api/create/competenceProfile`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +32,7 @@ export const useCompetenceStore = create((set: any, get: any) => ({
         }
     },
     deleteCompetenceProfile: async (competenceProfileId: number, updatePerson: () => void) => {
-        const response = await fetch(`http://localhost:8080/api/delete/competenceProfile/${competenceProfileId}`, {
+        const response = await fetch(`${URL}/api/delete/competenceProfile/${competenceProfileId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
