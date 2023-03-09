@@ -18,7 +18,9 @@ public class CompetenceProfile {
    
     @Column(
         name="yearsOfExperience",
-        nullable = false
+        nullable = false,
+        precision=10, 
+        scale=2
     )
     private double yearsOfExperience;
 
