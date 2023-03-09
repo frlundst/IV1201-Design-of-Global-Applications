@@ -10,7 +10,8 @@ public interface CompetenceRepository extends JpaRepository<Competence, String >
 
     public Optional<Competence> findById(String Id); // MAYBE WRONG OK?
 
+    public Competence findByNameOfCompetence(String nameOfCompetence);
     
-    
+    public void deleteByNameOfCompetence(String nameOfCompetence);
 
 }

@@ -23,4 +23,7 @@ public class JwtResponse implements Serializable {
 	public String getToken() {
 		return this.token;
 	}
+
+    public void setToken(String token2) {
+    }
 }

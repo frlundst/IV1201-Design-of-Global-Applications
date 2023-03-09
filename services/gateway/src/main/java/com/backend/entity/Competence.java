@@ -27,4 +27,13 @@ public class Competence {
     public Competence(){
         
     }
+
+    public Competence(String nameOfCompeteString){
+        this.nameOfCompetence = nameOfCompeteString;
+    }
+
+    public String getNameOfCompetence(){
+        return this.nameOfCompetence;
+
+    }
 }
