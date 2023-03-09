@@ -1,14 +1,15 @@
 package com.backend.controller;
 
-
-
-import java.security.Principal;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,48 +21,85 @@ import com.backend.model.dtos.NewCompetenceProfileDto;
 import com.backend.repository.*;
 
 import com.backend.repository.CompetenceRepository;
+import com.backend.security.config.JwtTokenUtil;
 
-//;CompetenceProfileRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 
-
-
-
+@CrossOrigin(origins = "${cors.frontend.url}")
 @RestController
+@Transactional
 public class CompetenceProfileController {
-    
-private final CompetenceProfileRepository repository;
-private final PersonRepository personRepository;
-private final CompetenceRepository competenceRepository;
 
+    @Autowired
+    private CompetenceProfileRepository repository;
 
-public CompetenceProfileController(CompetenceProfileRepository repository, PersonRepository personRepository, CompetenceRepository competenceRepository){
+    @Autowired
+    private PersonRepository personRepository;
 
-    this.repository = repository;
-    this.personRepository = personRepository;
-    this.competenceRepository = competenceRepository;
-    
-}
+    @Autowired
+    private CompetenceRepository competenceRepository;
 
-@PostMapping("/api/create/competenceProfile")
-public ResponseEntity<?> newCompetenceProfile(@Valid @RequestBody NewCompetenceProfileDto newCompetenceProfileRequest, Principal principal){
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
-    Optional<Person> person = personRepository.findByUsername(principal.getName());
-
-    Optional<Competence> competence= competenceRepository.findById(newCompetenceProfileRequest.Id);
-
-    if(person.isEmpty() || competence.isEmpty()){
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public CompetenceProfileController() {
     }
 
-    CompetenceProfile newCompetenceProfile = new CompetenceProfile();
-    newCompetenceProfile.setYearsOfExperience(newCompetenceProfileRequest.yearsOfExperience);
-    newCompetenceProfile.setPerson(person.get()); // person.get(). To Get the person ok.
-    newCompetenceProfile.setCompetence(competence.get()); // competence. getCompetence.
+    /**
+     * Create a new competence profile for a person.
+     * 
+     * @param newCompetenceProfileRequest
+     * @param principal
+     * @return
+     */
+    @PostMapping("/api/create/competenceProfile")
+    public ResponseEntity<?> newCompetenceProfile(
+            @Valid @RequestBody NewCompetenceProfileDto newCompetenceProfileRequest, HttpServletRequest request) {
 
-    repository.save(newCompetenceProfile); // SAVE THE NEW COMPETENCE PROFILE ok?.
-    return new ResponseEntity<>(newCompetenceProfile, HttpStatus.CREATED);
-}
+        String token = request.getHeader("Authorization").substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Person person = personRepository.findByEmail(username);
 
+        Optional<Competence> competence = competenceRepository.findById(newCompetenceProfileRequest.id);
 
+        if (person.equals(null) || competence.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        CompetenceProfile newCompetenceProfile = new CompetenceProfile();
+        newCompetenceProfile.setYearsOfExperience(newCompetenceProfileRequest.yearsOfExperience);
+        newCompetenceProfile.setPersonId(person.getId()); // person.get(). To Get the person ok.
+        newCompetenceProfile.setCompetence(competence.get()); // competence. getCompetence.
+
+        repository.save(newCompetenceProfile); // SAVE THE NEW COMPETENCE PROFILE ok?.
+        return new ResponseEntity<>(newCompetenceProfile, HttpStatus.CREATED);
+    }
+
+    /**
+     * Delete a competence profile.
+     * @param id
+     * @param request
+     * @return
+     */
+    @DeleteMapping("/api/delete/competenceProfile/{id}")
+    public ResponseEntity<?> deleteCompetenceProfile(@PathVariable String id, HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Person person = personRepository.findByEmail(username);
+
+        CompetenceProfile competenceProfile = repository.findById(id).get();
+
+        if (person.equals(null) || competenceProfile.equals(null)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (!competenceProfile.getPersonId().equals(person.getId())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        repository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
