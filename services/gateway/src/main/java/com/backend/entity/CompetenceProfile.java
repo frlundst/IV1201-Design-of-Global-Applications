@@ -7,8 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "CompetenceProfile")
-@Table(name = "CompetenceProfile")
+@Entity
+@Table(name = "competence_profile")
+/**
+ * CompetenceProfile entity.
+ */
 public class CompetenceProfile {
    
     @Id

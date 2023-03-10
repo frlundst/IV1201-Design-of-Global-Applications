@@ -48,7 +48,6 @@ public class CompetenceProfileController {
 
     /**
      * Create a new competence profile for a person.
-     * 
      * @param newCompetenceProfileRequest
      * @param principal
      * @return

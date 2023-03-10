@@ -10,6 +10,9 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "application")
+/**
+ * Application entity.
+ */
 public class Application {
 
     @Id

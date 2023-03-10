@@ -40,17 +40,33 @@ public class WebSecurityConfig {
         auth.userDetailsService(customerService).passwordEncoder(passwordEncoder);
     }
 
+    /**
+     * Authentication manager
+     * @param authenticationConfiguration
+     * @return
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /**
+     * Web security customizer. For debugging and logging.
+     * @return
+     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.debug(true);
     }
 
+    /**
+     * Filter chain.
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

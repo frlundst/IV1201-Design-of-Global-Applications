@@ -8,8 +8,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Getter
 @Setter
-@Entity(name = "Competence")
+@Entity
 @Table(name = "Competence")
+/**
+ * Competence entity.
+ */
 public class Competence {
 
     @Id

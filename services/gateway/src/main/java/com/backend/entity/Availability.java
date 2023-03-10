@@ -13,6 +13,9 @@ import jakarta.persistence.*;
 @Entity
 @EqualsAndHashCode
 @Table(name = "availability")
+/**
+ * Availability entity.
+ */
 public class Availability {
 
     @Id
