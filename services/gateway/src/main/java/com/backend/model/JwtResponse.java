@@ -15,11 +15,20 @@ public class JwtResponse implements Serializable {
 	private final String token;
 	private Person person;
 
+	/**
+	 * Constructor.
+	 * @param jwttoken
+	 * @param person
+	 */
 	public JwtResponse(String jwttoken, Person person) {
 		this.token = jwttoken;
 		this.person = person;
 	}
 
+	/**
+	 * Get token.
+	 * @return String token.
+	 */
 	public String getToken() {
 		return this.token;
 	}

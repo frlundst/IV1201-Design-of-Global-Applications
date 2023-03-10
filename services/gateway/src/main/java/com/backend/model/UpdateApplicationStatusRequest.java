@@ -5,6 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
+/**
+ * UpdateApplicationStatusRequest model.
+ */
 public class UpdateApplicationStatusRequest {
     private String status;
     private String id;

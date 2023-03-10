@@ -15,6 +15,9 @@ import lombok.AllArgsConstructor;
 public class PersonService implements UserDetailsService {
     private final PersonRepository customerRepository;
 
+    /**
+     * Load user by username.
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Person c = customerRepository.findByEmail(email);

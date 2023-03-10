@@ -24,6 +24,12 @@ public class CompetenceController {
     
     public CompetenceController(){}
 
+    /**
+     * GET ALL COMPETENCES
+     * @param response
+     * @param request
+     * @return
+     */
     @GetMapping("/api/competences")
     public List<Competence> getAll(HttpServletResponse response, HttpServletRequest request) {
         System.out.println("getAll competences executing..");

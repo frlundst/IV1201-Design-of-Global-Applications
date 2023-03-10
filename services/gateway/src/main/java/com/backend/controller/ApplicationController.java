@@ -100,6 +100,12 @@ public class ApplicationController {
         return "Success";
     }
 
+    /**
+     * Delete the application by id.
+     * @param id
+     * @param request
+     * @return
+     */
     @DeleteMapping("api/application/delete/{id}")
     public String deleteApplication(@PathVariable String id, HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(7);
