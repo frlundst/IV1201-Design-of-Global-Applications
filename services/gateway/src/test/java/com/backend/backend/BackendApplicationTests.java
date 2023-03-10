@@ -1,13 +1,11 @@
 package com.backend.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
-import com.backend.entity.Application;
 import com.backend.entity.Person;
 import com.backend.model.AddApplicationRequest;
 import com.backend.model.JwtRequest;
@@ -87,7 +85,7 @@ class BackendApplicationTests {
     void testSetterResponse() {
         String token = "testtoken";
         Person person = new Person();
-        JwtResponse response = new JwtResponse(null, null);
+        JwtResponse response = new JwtResponse(token, null);
 
         response.setPerson(person);
 
