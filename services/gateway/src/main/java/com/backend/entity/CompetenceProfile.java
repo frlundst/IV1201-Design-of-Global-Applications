@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "CompetenceProfile")
-@Table(name = "CompetenceProfile")
+@Entity
+@Table(name = "competence_profile")
 public class CompetenceProfile {
    
     @Id
@@ -18,11 +18,9 @@ public class CompetenceProfile {
    
     @Column(
         name="years_of_experience",
-        nullable = false,
-        precision=10, 
-        scale=2
+        nullable = false
     )
-    private double yearsOfExperience;
+    private int yearsOfExperience;
 
     @ManyToOne
     @JoinColumn(name="competence_id")
