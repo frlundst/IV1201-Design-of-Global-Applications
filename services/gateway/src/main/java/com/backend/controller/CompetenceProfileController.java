@@ -69,10 +69,10 @@ public class CompetenceProfileController {
 
         CompetenceProfile newCompetenceProfile = new CompetenceProfile();
         newCompetenceProfile.setYearsOfExperience(newCompetenceProfileRequest.yearsOfExperience);
-        newCompetenceProfile.setPersonId(person.getId()); // person.get(). To Get the person ok.
-        newCompetenceProfile.setCompetence(competence.get()); // competence. getCompetence.
+        newCompetenceProfile.setPersonId(person.getId()); 
+        newCompetenceProfile.setCompetence(competence.get()); 
 
-        repository.save(newCompetenceProfile); // SAVE THE NEW COMPETENCE PROFILE ok?.
+        repository.save(newCompetenceProfile); 
         return new ResponseEntity<>(newCompetenceProfile, HttpStatus.CREATED);
     }
 

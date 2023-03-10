@@ -8,11 +8,6 @@ import com.backend.entity.Person;
 
 public interface PersonRepository extends JpaRepository<Person, String> {
     public Person findByEmail(String email);
-
-
+    
     public Optional<Person> findByUsername(String username);
-
-    
-    
-
 }

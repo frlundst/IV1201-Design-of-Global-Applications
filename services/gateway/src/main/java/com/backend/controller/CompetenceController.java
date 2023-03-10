@@ -24,12 +24,17 @@ public class CompetenceController {
     
     public CompetenceController(){}
 
+    /**
+     * Get all Competences
+     * Can only be done by all users
+     * @return
+     */
     @GetMapping("/api/competences")
     public List<Competence> getAll(HttpServletResponse response, HttpServletRequest request) {
         System.out.println("getAll competences executing..");
         try {
             response.setStatus(200);
-            return repository.findAll(); // RETURN LIST OF ALL. 
+            return repository.findAll();  
         } catch (Exception e) {
             response.setStatus(500);
             System.out.println(e.getMessage());
@@ -37,6 +42,4 @@ public class CompetenceController {
         return null;
     }
 
-
-    
 }
